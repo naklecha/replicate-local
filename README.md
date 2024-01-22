@@ -1,7 +1,7 @@
 # replicate-local
 Retrieve the source code for any model made available on replicate.com.
 
-### show demo video
+### demo
 ![Watch the demo video](demo.gif)
 
 
