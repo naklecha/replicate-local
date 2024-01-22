@@ -24,10 +24,8 @@ echo "\033[32mConverted IMAGE_NAME to CONTAINER_NAME: $CONTAINER_NAME\033[0m"
 
 # Run a new Docker container interactively with the name CONTAINER_NAME, using the image IMAGE_NAME, and start a bash shell
 echo "\033[32mRunning Docker container named $CONTAINER_NAME with image $IMAGE_NAME\033[0m"
-docker run -it --name "$CONTAINER_NAME" "$IMAGE_NAME" /bin/bash &
-# Capture the job number (process ID) of the last background process, which is the docker run command
-job_number=$!
-echo "\033[32mDocker run process started with job number $job_number\033[0m"
+docker pull $IMAGE_NAME
+docker run -itd --name $CONTAINER_NAME $IMAGE_NAME /bin/bash
 # Copy the contents from the container's /src directory to a local directory named after the container
 echo "\033[32mCopying contents from $CONTAINER_NAME:/src to ./$CONTAINER_NAME\033[0m"
 docker cp $CONTAINER_NAME:/src ./$CONTAINER_NAME
@@ -39,6 +37,4 @@ echo "\033[32mKilling temporary containers and jobs\033[0m"
 docker kill $CONTAINER_NAME
 # Remove the container from the Docker host, deleting its filesystem
 docker rm $CONTAINER_NAME
-# Kill the process with the job number captured earlier, ensuring the docker run process is terminated
-pkill -P $job_number
 

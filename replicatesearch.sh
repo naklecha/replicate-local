@@ -26,12 +26,13 @@ response=$(curl -s "https://replicate.com/api/models/search?query=$encoded_query
 echo $response
 
 # Use Python to parse and format the JSON output since jq is not available
-echo $response | python3 -c "import sys, json; [print(f'''{item['username']}/{item['name']} [runs {item['run_count']}], {item['description']}''') for item in json.load(sys.stdin)['models']]" | while IFS= read -r line; do
+echo $response | python3 -c "import sys, json; [print(f'''{item['username']}/{item['name']}, {item['description']} [runs {item['run_count']}]''') for item in json.load(sys.stdin)['models']]" | while IFS= read -r line; do
     model_info=$(echo $line | cut -d',' -f1)
     description=$(echo $line | cut -d',' -f2)
 
     echo "\033[32mmodel:\033[0m $model_info"
     echo "\033[33m>$description\033[0m"
+    echo "\033[36msh replicatelocal.sh r8.im/$model_info\033[0m"
     
     echo
 done
