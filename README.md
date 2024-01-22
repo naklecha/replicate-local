@@ -2,7 +2,7 @@
 Retrieve the source code for any model made available on replicate.com.
 
 ### show demo video
-https://raw.githubusercontent.com/naklecha/replicate-local/main/demo.mp4
+![Watch the demo video](demo.gif)
 
 
 ### search for a model on replicate
